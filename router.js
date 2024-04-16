@@ -188,7 +188,25 @@ router.put("/:id", authenticateUser, async (req, res) => {
     // }
 
     // Make sure bike data contains all required fields
+
+
     const bikeObject = BikeData.check(bikeData);
+
+    const filter = { id: bikeId }; // Define the filter for the record you want to update
+    const update = {
+        $set: {
+            ...bikeObject
+        }
+    }; // Define the update object
+
+    bikesCollection.update(filter, update)
+      .then((result) => {
+          console.log('Update successful:', result);
+      })
+      .catch((err) => {
+          console.error('Unable to update item:', err);
+          throw err
+      });
 
     console.log('put bike step 1 => ', bikeObject);
 
