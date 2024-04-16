@@ -150,7 +150,6 @@ router.patch("/:id", authenticateUser, async (req, res) => {
   try {
     const { props: oldBike } = await bikesCollection.get(bikeId);
     const bike = {
-      ...oldBike,
       ...newData,
     };
 
