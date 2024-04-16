@@ -193,8 +193,8 @@ router.put("/:id", authenticateUser, async (req, res) => {
     console.log('put bike step 1 => ', bikeObject);
 
     // Delete existing bike object
-    await bikesCollection.delete(bikeId);
-    console.log('put bike step 2 => ');
+    const deleteResult = await bikesCollection.delete(bikeId);
+    console.log('put bike step 2 => ', deleteResult);
     // Save new bike object
     const result = await bikesCollection.set(bikeId, bikeObject);
     
