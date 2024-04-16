@@ -20,25 +20,25 @@ export const bikeAccessor = () => {
   });
 
   return {
-    id: uuidv4(),
-    title,
-    handle,
-    productType: type,
-    createdAt: String(faker.datatype.datetime()),
-    description: faker.lorem.paragraph(),
-    vendor: faker.vehicle.manufacturer(),
-    availableForSale: faker.datatype.boolean(),
-    totalInventory: faker.datatype.number({ min: 1, max: 5 }),
-    priceRange: {
-      minPrice: {
-        amount: minPrice,
-        currencyCode: "USD",
+    "id": uuidv4(),
+    "title": title,
+    "handle": handle,
+    "productType": type,
+    "createdAt": String(faker.datatype.datetime()),
+    "description": faker.lorem.paragraph(),
+    "vendor": faker.vehicle.manufacturer(),
+    "availableForSale": faker.datatype.boolean(),
+    "totalInventory": faker.datatype.number({ min: 1, max: 5 }),
+    "priceRange": {
+      "minPrice": {
+        "amount": minPrice,
+        "currencyCode": "USD"
       },
-      maxPrice: {
-        amount: maxPrice,
-        currencyCode: "USD",
-      },
-    },
+      "maxPrice": {
+        "amount": maxPrice,
+        "currencyCode": "USD"
+      }
+    }
   };
 };
 
@@ -49,10 +49,10 @@ async function fillDataBaseWithBikes() {
   const db = DynamoDb(process.env.DYNAMO_DB);
   const bikesCollection = db.collection("bikes");
 
-  await Promise.allSettled(
+  const savedBikes = await Promise.allSettled(
     randomBikes.map((bike) => bikesCollection.set(bike.id, bike))
   );
-  console.log(`Added ${totalBikes} new bikes.`);
+  console.log(`Added ${totalBikes} new bikes.`, savedBikes);
 }
 
 fillDataBaseWithBikes();

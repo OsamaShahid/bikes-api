@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { router as bikesRouter } from "./router.js";
 
 import { generateAccessToken } from "./auth.js";
@@ -6,6 +7,9 @@ import { generateAccessToken } from "./auth.js";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Use CORS middleware
+app.use(cors());
 
 // Landing Page
 app.use(express.static('homepage'))
