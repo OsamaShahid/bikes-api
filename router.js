@@ -190,16 +190,20 @@ router.put("/:id", authenticateUser, async (req, res) => {
     // Make sure bike data contains all required fields
     const bikeObject = BikeData.check(bikeData);
 
+    console.log('put bike step 1 => ', bikeObject);
+
     // Delete existing bike object
     await bikesCollection.delete(bikeId);
-
+    console.log('put bike step 2 => ');
     // Save new bike object
     await bikesCollection.set(bikeId, bikeObject);
 
+    console.log('put bike step 3 => ');
     res.send(bikeObject);
   } catch (e) {
+    console.log('put bike step 3 => ', JSON.stringify(e));
     console.log(e.message);
-    res.sendStatus(404);
+    res.sendStatus(500);
   }
 });
 
