@@ -200,7 +200,7 @@ router.put("/:id", authenticateUser, async (req, res) => {
     }; // Define the update object
 
     // Update the record
-    const result = await bikesCollection.update(filter, update);
+    const result = await bikesCollection.updateItem(filter, update);
     console.log('Update successful:', result);
 
     // Fetch the updated object
