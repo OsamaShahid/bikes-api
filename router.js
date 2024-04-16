@@ -199,25 +199,22 @@ router.put("/:id", authenticateUser, async (req, res) => {
         }
     }; // Define the update object
 
-    bikesCollection.update(filter, update)
-      .then((result) => {
-          console.log('Update successful:', result);
-      })
-      .catch((err) => {
-          console.error('Unable to update item:', err);
-          throw err
-      });
+    // Update the record
+    const result = await bikesCollection.update(filter, update);
+    console.log('Update successful:', result);
 
-    console.log('put bike step 1 => ', bikeObject);
+    // Fetch the updated object
+    const updatedBike = await bikesCollection.findOne({ id: 'your-bike-id' });
+    console.log('Updated object:', updatedBike);
 
-    // Delete existing bike object
-    await bikesCollection.delete(bikeId);
-    console.log('put bike step 2 => ');
-    // Save new bike object
-    await bikesCollection.set(bikeId, bikeObject);
+    // // Delete existing bike object
+    // await bikesCollection.delete(bikeId);
+    // console.log('put bike step 2 => ');
+    // // Save new bike object
+    // await bikesCollection.set(bikeId, bikeObject);
 
-    console.log('put bike step 3 => ');
-    res.send(bikeObject);
+    // console.log('put bike step 3 => ');
+    res.send(updatedBike);
   } catch (e) {
     console.log('put bike step 3 => ', JSON.stringify(e));
     console.log(e.message);
