@@ -183,9 +183,9 @@ router.put("/:id", authenticateUser, async (req, res) => {
     }
 
     // Make sure bike has ID and handle
-    if (!bikeData.id || !bikeData.handle) {
-      throw new Error();
-    }
+    // if (!bikeData.id || !bikeData.handle) {
+    //   throw new Error();
+    // }
 
     // Make sure bike data contains all required fields
     const bikeObject = BikeData.check(bikeData);
