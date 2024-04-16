@@ -150,16 +150,20 @@ router.patch("/:id", authenticateUser, async (req, res) => {
   try {
     const { props: oldBike } = await bikesCollection.get(bikeId);
     const bike = {
+      ...oldBike,
       ...newData,
     };
 
-    // Save new bike object
-    await bikesCollection.set(bikeId, newData);
+    console.log('patch bike step 1 => ', bike);
 
+    // Save new bike object
+    await bikesCollection.set(bikeId, bike);
+
+    console.log('patch bike step 2 => ');
     res.send(bike);
   } catch (e) {
     console.log(e.message);
-    res.sendStatus(404);
+    res.sendStatus(500);
   }
 });
 
